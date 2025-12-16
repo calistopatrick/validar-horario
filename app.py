@@ -21,18 +21,34 @@ def validar_horario():
             return jsonify({"error": "Não foi possível obter horário"}), 500
 
         now = datetime.fromisoformat(now_str)
+
+        # Horário atual em minutos
         atual = now.hour * 60 + now.minute
 
-        inicio = 8 * 60
-        fim = 18 * 60
+        inicio = 8 * 60      # 08:00
+        fim = 18 * 60        # 18:00
 
-        valido = inicio <= atual <= fim
+        # Fora do horário → 403
+        if atual < inicio:
+            return jsonify({
+                "horario_atual": now.strftime("%H:%M:%S"),
+                "valido": False,
+                "mensagem": "Fora do horário permitido (antes das 08:00)"
+            }), 403
 
+        if atual > fim:
+            return jsonify({
+                "horario_atual": now.strftime("%H:%M:%S"),
+                "valido": False,
+                "mensagem": "Fora do horário permitido (após as 18:00)"
+            }), 403
+
+        # Dentro do horário → 200
         return jsonify({
             "horario_atual": now.strftime("%H:%M:%S"),
-            "valido": valido,
-            "mensagem": "Dentro do horário permitido" if valido else "Fora do horário permitido"
-        })
+            "valido": True,
+            "mensagem": "Dentro do horário permitido"
+        }), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
