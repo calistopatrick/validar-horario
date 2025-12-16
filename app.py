@@ -38,9 +38,6 @@ def validar_dia_semana():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
-<<<<<<< HEAD
-=======
-    # 🔥 IMPORTANTE: faz a API abrir no navegador
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
->>>>>>> c5219ddf677b7aacf5cd8f5f7f537cc9f2ec81c0
+    app.run(host="0.0.0.0", port=5000)
