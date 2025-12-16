@@ -4,7 +4,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-WORLD_TIME_API = "http://worldtimeapi.org/api/timezone/America/Sao_Paulo"
+WORLD_TIME_API = "https://worldtimeapi.org/api/timezone/America/Sao_Paulo"
 
 @app.get("/")
 def home():
