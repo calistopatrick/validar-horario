@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #!/home/patrickcalisto/Desktop/api_hr_bem/venv/bin/python3
+=======
+#!/home/patrickcalisto/Desktop/api_dia_bem/venv/bin/python3
+>>>>>>> c5219ddf677b7aacf5cd8f5f7f537cc9f2ec81c0
 # -*- coding: utf-8 -*-
 import re
 import sys
