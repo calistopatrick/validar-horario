@@ -8,9 +8,9 @@ TIMEZONE = ZoneInfo("America/Sao_Paulo")
 
 @app.get("/")
 def home():
-    return jsonify({"message": "API de validação de dia da semana funcionando!"})
+    return jsonify({"message": "API de validação de horario funcionando!"})
 
-@app.get("/validar-dia-semana")
+@app.get("/validar-horario-bem")
 def validar_dia_semana():
     try:
         now = datetime.now(TIMEZONE)
