@@ -8,36 +8,39 @@ TIMEZONE = ZoneInfo("America/Sao_Paulo")
 
 @app.get("/")
 def home():
-    return jsonify({"message": "API de validação de horario funcionando!"})
+    return jsonify({"message": "API de validação de horário funcionando!"})
 
 @app.get("/validar-horario-bem")
-def validar_dia_semana():
+def validar_horario():
     try:
         now = datetime.now(TIMEZONE)
 
-        # Monday = 0 ... Sunday = 6
-        dia_semana = now.weekday()
+        atual = now.hour * 60 + now.minute
+        inicio = 8 * 60     # 08:00
+        fim = 18 * 60       # 18:00
 
-        # ❌ Final de semana
-        if dia_semana >= 5:
+        if atual < inicio:
             return jsonify({
-                "data": now.strftime("%Y-%m-%d"),
-                "dia_semana": now.strftime("%A"),
+                "horario_atual": now.strftime("%H:%M:%S"),
                 "valido": False,
-                "mensagem": "Acesso não permitido (final de semana)"
+                "mensagem": "Fora do horário permitido (antes das 08:00)"
             }), 403
 
-        # ✅ Dia útil
+        if atual > fim:
+            return jsonify({
+                "horario_atual": now.strftime("%H:%M:%S"),
+                "valido": False,
+                "mensagem": "Fora do horário permitido (após as 18:00)"
+            }), 403
+
         return jsonify({
-            "data": now.strftime("%Y-%m-%d"),
-            "dia_semana": now.strftime("%A"),
+            "horario_atual": now.strftime("%H:%M:%S"),
             "valido": True,
-            "mensagem": "Acesso permitido (dia útil)"
+            "mensagem": "Dentro do horário permitido"
         }), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
